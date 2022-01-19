@@ -40,7 +40,11 @@ class SourcesController extends Controller
             ['id', 'name'],
 
             // set columns to searchIn
-            ['id', 'name']
+            ['id', 'name'],
+
+            function ($query) {
+                $query->withCount('contacts');
+            }
         );
 
         if ($request->ajax()) {
@@ -78,7 +82,7 @@ class SourcesController extends Controller
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
-        
+
         // Store the Source
         $source = Source::create($sanitized);
 

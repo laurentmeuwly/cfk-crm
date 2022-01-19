@@ -9,16 +9,16 @@ class Category extends Model
     protected $fillable = [
         'name',
         'parent_id',
-    
+
     ];
-    
-    
+
+
     protected $dates = [
         'created_at',
         'updated_at',
-    
+
     ];
-    
+
     protected $appends = ['resource_url'];
 
     /* ************************ ACCESSOR ************************* */
@@ -34,4 +34,5 @@ class Category extends Model
     {
         $this->belongsToMany(Contact::class);
     }
+
 }

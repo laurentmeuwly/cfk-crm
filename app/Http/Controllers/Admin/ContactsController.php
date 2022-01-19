@@ -49,16 +49,6 @@ class ContactsController extends Controller
      */
     public function index(IndexContact $request)
     {
-        //dd(openssl_get_cert_locations());
-        //dd(Sendinblue::getLists());
-        //test API
-        //$api = new SendinblueApi('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');
-        //$api->subscribe($contact->email, 2);
-        //$result = $api->getContactInfo('laurent.meuwly@radiofr.ch');
-        //$result = $api->getContactInfo('laurent@lmeuwly.ch');
-        //$result = $api->getContactUnsubscribe('laurent.meuwly@radiofr.ch');
-        //dd($result);
-
         // create and AdminListing instance for a specific model and
         $data = AdminListing::create(Contact::class)->processRequestAndGet(
             // pass the request with params
@@ -137,10 +127,10 @@ class ContactsController extends Controller
         $sanitized['categories'] = $request->getCategories();
 
         DB::transaction(function () use ($sanitized) {
-            // Store the Contact            
+            // Store the Contact
             $contact = Contact::create($sanitized);
             $contact->categories()->sync($sanitized['categories']);
-        });        
+        });
 
         if ($request->ajax()) {
             return ['redirect' => url('admin/contacts'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
@@ -174,7 +164,7 @@ class ContactsController extends Controller
     {
         $this->authorize('admin.contact.edit', $contact);
 
-        $contact->load(['title', 'source', 'categories']);        
+        $contact->load(['title', 'source', 'categories']);
 
         return view('admin.contact.edit', [
             'contact' => $contact,
@@ -275,9 +265,9 @@ class ContactsController extends Controller
         if ($request->ajax()) {
             return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
         }
-        
+
         return redirect('admin/contacts?deleted=true');
-    }    
+    }
 
     /**
      * @param ImportContact $request
@@ -290,13 +280,13 @@ class ContactsController extends Controller
         if ($request->hasFile('fileImport')) {
 
             try {
-                $collectionFromImportedFile = $this->contactService->getCollectionFromImportedFile($request->file('fileImport'));                
+                $collectionFromImportedFile = $this->contactService->getCollectionFromImportedFile($request->file('fileImport'));
             } catch (Exception $e) {
                 return response()->json($e->getMessage(), 409);
             }
-            
-            $existingContacts = $this->contactService->getAllContacts();            
-            
+
+            $existingContacts = $this->contactService->getAllContacts();
+
             if ($request->input('onlyMissing') === 'true') {
                 $filteredCollection = $this->contactService->getFilteredExistingContacts($collectionFromImportedFile, $existingContacts);
                 $this->contactService->saveCollection($filteredCollection);
@@ -304,7 +294,7 @@ class ContactsController extends Controller
                 return ['numberOfImportedContacts' => count($filteredCollection), 'numberOfUpdatedContacts' => 0];
             } else {
                 $collectionWithConflicts = $this->contactService->getCollectionWithConflicts($collectionFromImportedFile, $existingContacts);
-                
+
                 $numberOfConflicts = $this->contactService->getNumberOfConflicts($collectionWithConflicts);
 
                 if ($numberOfConflicts === 0) {
@@ -313,7 +303,7 @@ class ContactsController extends Controller
 
                 return $collectionWithConflicts;
             }
-            
+
         }
         return response()->json('No file imported', 409);
     }
