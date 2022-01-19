@@ -20999,3 +20999,7 @@ div.trumbowyg-dropdown-table table td.active {
 .app-header {
   background-color: #eebb00;
 }
+
+label {
+  color: #000000;
+}

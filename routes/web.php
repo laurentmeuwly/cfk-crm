@@ -54,7 +54,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/{source}/edit',                                'SourcesController@edit')->name('edit');
             Route::post('/bulk-destroy',                                'SourcesController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{source}',                                    'SourcesController@update')->name('update');
-            Route::delete('/{source}',                                  'SourcesController@destroy')->name('destroy');            
+            Route::delete('/{source}',                                  'SourcesController@destroy')->name('destroy');
         });
     });
 });
@@ -99,12 +99,12 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::get('/{contact}/edit',                               'ContactsController@edit')->name('edit');
             Route::get('/{contact}/restore',                            'ContactsController@restore')->name('restore')->withTrashed();
             Route::post('/bulk-destroy',                                'ContactsController@bulkDestroy')->name('bulk-destroy');
-            
+
             Route::post('/import',                                      'ContactsController@import')->name('import');
             Route::post('/{contact}',                                   'ContactsController@update')->name('update');
             Route::delete('/{contact}',                                 'ContactsController@destroy')->name('destroy');
             Route::delete('/{contact}/purge',                           'ContactsController@purge')->name('purge')->withTrashed();
-            
+
             //Route::get('/csrf',                                      'ContactsController@showToken')->name('csrf');
         });
     });
