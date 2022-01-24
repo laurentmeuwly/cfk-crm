@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contact extends Model
 {
+    use HasFactory;
     use SoftDeletes;
-    
+
     protected $fillable = [
         'firstname',
         'lastname',
@@ -18,15 +20,15 @@ class Contact extends Model
         'title_id',
         'source_id'
     ];
-    
-    
+
+
     protected $dates = [
         'deleted_at',
         'created_at',
         'updated_at',
-    
+
     ];
-    
+
     protected $appends = ['resource_url'];
 
     /* ************************ ACCESSOR ************************* */

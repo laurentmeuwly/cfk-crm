@@ -1,12 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use CloudCreativity\LaravelJsonApi\Facades\JsonApi;
-use CloudCreativity\LaravelJsonApi\Routing\RouteRegistrar as Api;
-
+use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,23 +20,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->group(function() {
+    JsonApiRoute::server('v1')
+        ->prefix('v1')
+        ->resources(function ($server) {
+            $server->resource('contacts', JsonApiController::class)
+            ->relationships(function ($relationships) {
+			    $relationships->hasOne('title');
+                $relationships->hasOne('source');
+			});
 
-JsonApi::register('v1')
-    //->withNamespace('Api')
-    //->withNamespace('App\Http\Controllers\Api')
-    //->defaultController('ContactController')
-    ->singularControllers()->routes(function (Api $api) {
-        
-        $api->resource('contacts')->relationShips(function ($relations) {
-            //$relations->hasOne('title')->readOnly();
-        });    
+            $server->resource('titles', JsonApiController::class)->readOnly();;
+            $server->resource('sources', JsonApiController::class)->readOnly();;
+    });
+
 });
 
-/*
-Route::group(['prefix' => 'v1', 'middleware' => 'api'], function () {
-    Route::get('contacts', [ContactController::class, 'index']);
-    //Route::get('contacts/{contact}', 'ContactController@show');
-    Route::delete('contacts/{contact}', [ContactController::class, 'delete']);
-    Route::post('contacts', [ContactController::class, 'store']);
-});
-*/
