@@ -7,6 +7,8 @@ use LMeuwly\Sendinblue\SendinblueApi;
 
 class ContactObserver
 {
+    private int $listNumber = 3;
+
     /**
      * Handle the Contact "created" event.
      *
@@ -20,7 +22,7 @@ class ContactObserver
             // construct options array to be compatible with Sendinblue
             $title = $contact->title ? $contact->title->name : 'Monsieur';
             $options = ['title' => $title, 'language' => $contact->prefered_language];
-            $api->subscribe($contact->email, $contact->firstname, $contact->lastname, $options, 2);
+            $api->subscribe($contact->email, $contact->firstname, $contact->lastname, $options, $this->listNumber);
         }
 
     }
@@ -37,7 +39,7 @@ class ContactObserver
             $api = new SendinblueApi(config('sendinblue.apikey'));
             // construct options array to be compatible with Sendinblue
             $options = ['title' => $contact->title->name, 'language' => $contact->prefered_language];
-            $api->subscribe($contact->email, $contact->firstname, $contact->lastname, $options, 2);
+            $api->subscribe($contact->email, $contact->firstname, $contact->lastname, $options, $this->listNumber);
         }
     }
 
