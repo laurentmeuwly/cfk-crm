@@ -43,7 +43,7 @@ class ContactRepository
                 'prefered_language' => Str::upper($language),
                 'newsletter' => $newsletter,
                 'title_id' => $title_id,
-                'source_id' => 6,
+                'source_id' => 3,
             ]
         );
     }
