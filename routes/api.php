@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
+use App\Http\Controllers\Api\V1\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,20 @@ Route::middleware('auth:sanctum')->group(function() {
     JsonApiRoute::server('v1')
         ->prefix('v1')
         ->resources(function ($server) {
-            $server->resource('contacts', JsonApiController::class)
+            $server->resource('contacts', ContactController::class)
+            ->relationships(function ($relationships) {
+			    $relationships->hasOne('title');
+                $relationships->hasOne('source');
+			});
+
+            $server->resource('titles', JsonApiController::class)->readOnly();;
+            $server->resource('sources', JsonApiController::class)->readOnly();;
+    });
+
+    JsonApiRoute::server('v2')
+        ->prefix('v2')
+        ->resources(function ($server) {
+            $server->resource('contacts', ContactController::class)
             ->relationships(function ($relationships) {
 			    $relationships->hasOne('title');
                 $relationships->hasOne('source');
