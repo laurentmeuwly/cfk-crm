@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contacts', function (Blueprint $table) {
-            $table->boolean('agreed')->default(false);
+            $table->boolean('agreement')->default(false);
             $table->timestamp('agreed_at')->nullable();
         });
     }

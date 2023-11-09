@@ -20,9 +20,9 @@ class ContactRequest extends ResourceRequest
             'firstname' => ['required','string'],
             'lastname' => ['required','string'],
             'prefered_language' => 'required|string|min:2',
-            'email' => 'required|string',
+            'email' => 'required|string|unique:contacts,email',
             'newsletter' => 'required|boolean',
-            'agreed' => 'required|boolean',
+            'agreement' => 'required|boolean',
             'title' => JsonApiRule::toOne(),
             'source' => JsonApiRule::toOne()
         ];

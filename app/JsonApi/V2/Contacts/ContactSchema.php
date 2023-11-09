@@ -39,7 +39,7 @@ class ContactSchema extends Schema
             Str::make("email"),
             Str::make("prefered_language"),
             Boolean::make("newsletter"),
-            Boolean::make("agreed"),
+            Boolean::make("agreement"),
             BelongsTo::make("title"),
             BelongsTo::make('source'),
             DateTime::make('createdAt')->sortable()->readOnly(),
