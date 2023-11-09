@@ -33,6 +33,7 @@ class Server extends BaseServer
     {
         return [
             Contacts\ContactSchema::class,
+            Webforms\WebformSchema::class,
             Sources\SourceSchema::class,
             Titles\TitleSchema::class,
         ];
