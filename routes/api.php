@@ -44,6 +44,12 @@ Route::middleware('auth:sanctum')->group(function() {
                 $relationships->hasOne('source');
 			});
 
+            $server->resource('webforms', JsonApiController::class)
+            ->relationships(function ($relationships) {
+                $relationships->hasOne('title');
+                $relationships->hasOne('source');
+			});
+
             $server->resource('titles', JsonApiController::class)->readOnly();;
             $server->resource('sources', JsonApiController::class)->readOnly();;
     });

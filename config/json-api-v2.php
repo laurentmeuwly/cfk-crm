@@ -67,6 +67,7 @@ return [
     */
     'resources' => [
         'contacts' => \App\Models\Contact::class,
+        'webforms' => \App\Models\Contactform::class,
         'titles' => \App\Models\Title::class,
     ],
 
