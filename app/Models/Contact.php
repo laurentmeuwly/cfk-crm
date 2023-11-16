@@ -17,6 +17,7 @@ class Contact extends Model
         'email',
         'prefered_language',
         'newsletter',
+        'agreement',
         'title_id',
         'source_id'
     ];
