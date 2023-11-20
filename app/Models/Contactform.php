@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ContactformCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +27,10 @@ class Contactform extends Model
         'created_at',
         'updated_at',
 
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ContactformCreated::class,
     ];
 
     protected $appends = ['resource_url'];
