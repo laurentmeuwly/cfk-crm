@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use App\Observers\ContactObserver;
 use App\Models\Contact;
 use App\Events\ContactformCreated;
+use App\Listeners\AddContactFromForm;
 use App\Listeners\SendContactNotification;
 
 class EventServiceProvider extends ServiceProvider
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         ContactformCreated::class => [
+            AddContactFromForm::class,
             SendContactNotification::class,
         ],
     ];
