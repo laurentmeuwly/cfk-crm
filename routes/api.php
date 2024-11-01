@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->group(function() {
                 $relationships->hasOne('source');
 			});
 
-            $server->resource('titles', JsonApiController::class)->readOnly();;
-            $server->resource('sources', JsonApiController::class)->readOnly();;
+            $server->resource('titles', JsonApiController::class)->readOnly();
+            $server->resource('sources', JsonApiController::class)->readOnly();
     });
 
     JsonApiRoute::server('v2')
@@ -44,14 +44,14 @@ Route::middleware('auth:sanctum')->group(function() {
                 $relationships->hasOne('source');
 			});
 
-            $server->resource('webforms', JsonApiController::class)
+            $server->resource('webforms', JsonApiController::class)->only('store')
             ->relationships(function ($relationships) {
                 $relationships->hasOne('title');
                 $relationships->hasOne('source');
 			});
 
-            $server->resource('titles', JsonApiController::class)->readOnly();;
-            $server->resource('sources', JsonApiController::class)->readOnly();;
+            $server->resource('titles', JsonApiController::class)->readOnly();
+            $server->resource('sources', JsonApiController::class)->readOnly();
     });
 
 });
